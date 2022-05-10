@@ -1,14 +1,20 @@
 ---
 # tasks file for rook_ceph
-- name: NGINX Ingress Controller | Apply manifests
-  kube:
-    name: "{{ item.item.name }}"
-    namespace: "{{ ingress_nginx_namespace }}"
-    kubectl: "{{ bin_dir }}/kubectl"
-    resource: "{{ item.item.type }}"
-    filename: "{{ kube_config_dir }}/addons/ingress_nginx/{{ item.item.file }}"
-    state: "latest"
-  with_items: "{{ ingress_nginx_manifests.results }}"
-  when:
-    - inventory_hostname == groups['kube_control_plane'][0]
-
+- name: KUBECONFIG cp kube config
+  shell: cp /etc/kubernetes/admin.conf /root
+- name: KUBECONFIG change own
+  shell: chown root:root /root/admin.conf
+- name: set KUBECONFIG 
+  shell: export $KUBECONFIG=/root/admin.conf
+- name: apply manifest crds.yaml & common
+  shell: kubectl create -f /vagrant/rook/deploy/examples/crds.yaml -f /vagrant/rook/deploy/examples/common.yaml
+  args:
+    executable: /bin/bash
+- name: apply manifest cluster.yml
+  shell: kubectl create -f /vagrant/rook/deploy/examples/cluster.yaml
+  args:
+    executable: /bin/bash
+- name: apply manifest toolbox ceph
+  shell: kubectl create -f /vagrant/rook/deploy/examples/toolbox.yaml
+  args:
+    executable: /bin/bash
