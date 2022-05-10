@@ -1,0 +1,1 @@
+{"rsync":{"/vagrant":{"disabled":false,"guestpath":"/vagrant","hostpath":"/root/kube-vagrant","type":"rsync","rsync__args":["--verbose","--archive","--delete","-z"],"rsync__exclude":[".git","venv"],"__vagrantfile":true,"args":["--verbose","--archive","--delete","-z"],"exclude":[".git","venv"],"owner":"vagrant","group":"vagrant"}}}
