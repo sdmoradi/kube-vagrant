@@ -122,6 +122,7 @@
     - { role: kubernetes-apps/network_plugin, tags: network }
     - { role: kubernetes-apps/policy_controller, tags: policy-controller }
     - { role: kubernetes-apps/ingress_controller, tags: ingress-controller }
+    - { role: kubernetes-apps/rook_ceph }
     - { role: kubernetes-apps/external_provisioner, tags: external-provisioner }
     - { role: kubernetes-apps, tags: apps }
 
