@@ -1,7 +1,7 @@
 ---
 # tasks file for rook_ceph
 - name: apply shecan dns
-  shell: resolvectl dns eth0 185.51.200.2 && netplan apply
+  shell: resolvectl dns eth0 185.51.200.2 178.22.122.100 && netplan apply
   args:
     executable: /bin/bash
 - name: apply galera cluster manifests
