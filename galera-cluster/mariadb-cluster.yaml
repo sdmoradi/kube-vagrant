@@ -85,7 +85,7 @@ spec:
       accessModes: [ "ReadWriteOnce" ]
       # uncomment if using slow storageClass on AWS
       # then no need for running pv or pvc manifests
-      storageClassName: heketi-provisioner
+      storageClassName: rook-ceph-block
       resources:
         requests:
           storage: 10Gi
