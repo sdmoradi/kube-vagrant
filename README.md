@@ -3,31 +3,33 @@
 
 deploy kubernets multi master ha cluster with Vagrant and virtualbox and using ceph as storage class (ceph rook) 
 
+## Requirements
+
+- ** Host with 24 core CPU and 48 Gi RAM and any OS
+- ** Download and install Vagrant in host from <https://www.vagrantup.com/downloads>
+- ** Download and install VituallBox from <https://www.virtualbox.org/wiki/Downloads>
+
 ## Quick Start
 
 To deploy the cluster you can use :
 
-### Ansible
+### Vagrant
 
 #### Usage
 
 ```ShellSession
 # Install dependencies from ``requirements.txt``
-sudo pip3 install -r requirements.txt
-```
-### Vagrant
-
-For Vagrant we need to install python dependencies for provisioning tasks.
-Check if Python and pip are installed:
-
-```ShellSession
-python -V && pip -V
-```
-
-If this returns the version of the software, you're good to go. If not, download and install Python from here <https://www.python.org/downloads/source/>
-Install the necessary requirements
-
-```ShellSession
 sudo pip install -r requirements.txt
 vagrant up
+```
+
+### Access to cluster nodes and manage
+
+```ShellSession
+vagrant ssh k8s-1
+sudo cp /etc/kubernetes/admin.conf .
+sudo chown vagrant:vagrant admin.conf
+export $KUBECONFIG=admin.conf
+
+kubectl get nodes -o wide
 ```
