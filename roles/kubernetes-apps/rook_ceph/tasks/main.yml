@@ -1,9 +1,5 @@
 ---
 # tasks file for rook_ceph
-- name: apply Admission Controller
-  shell: kubectl apply -f https://github.com/jetstack/cert-manager/releases/download/v1.7.1/cert-manager.yaml
-  args:
-    executable: /bin/bash
 - name: apply manifest crds.yaml & common
   shell: kubectl create -f /vagrant/rook/deploy/examples/crds.yaml -f /vagrant/rook/deploy/examples/common.yaml
   args:
