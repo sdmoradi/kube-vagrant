@@ -1,0 +1,13 @@
+---
+# tasks file for rook_ceph
+- name: apply shecan dns
+  shell: resolvectl dns eth0 185.51.200.2 && netplan apply
+  args:
+    executable: /bin/bash
+- name: apply galera cluster manifests
+  shell: kubectl create -f /vagrant/galera-cluster/etcd-cluster.yaml -f /vagrant/galera-cluster/mariadb-cluster.yaml
+  args:
+    executable: /bin/bash
+  when:
+    - inventory_hostname == groups['kube_control_plane'][0]
+
