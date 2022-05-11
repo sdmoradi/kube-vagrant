@@ -1,7 +1,15 @@
 ---
 # tasks file for rook_ceph
+- name: apply shecan dns 
+  shell: resolvectl dns eth0 185.51.200.2 && netplan apply
+  args:
+    executable: /bin/bash
 - name: apply manifest crds.yaml & common
   shell: kubectl create -f /vagrant/rook/deploy/examples/crds.yaml -f /vagrant/rook/deploy/examples/common.yaml
+  args:
+    executable: /bin/bash
+- name: apply manifest operator rook ceph
+  shell: kubectl create -f /vagrant/rook/deploy/examples/operator.yaml
   args:
     executable: /bin/bash
 - name: apply manifest cluster.yml
@@ -10,5 +18,9 @@
     executable: /bin/bash
 - name: apply manifest toolbox ceph
   shell: kubectl create -f /vagrant/rook/deploy/examples/toolbox.yaml
+  args:
+    executable: /bin/bash
+- name: apply StorageClass manifest 
+  shell: kubectl create -f /vagrant/rook/deploy/examples/csi/rbd/storageclass.yaml
   args:
     executable: /bin/bash
