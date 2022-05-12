@@ -49,6 +49,7 @@ spec:
     - --initial-cluster-state
     - new
     image: quay.io/coreos/etcd:latest
+    imagePullPolicy: IfNotPresent
     name: etcd0
     ports:
     - containerPort: 2379
@@ -118,6 +119,7 @@ spec:
     - --initial-cluster-state
     - new
     image: quay.io/coreos/etcd:latest
+    imagePullPolicy: IfNotPresent
     name: etcd1
     ports:
     - containerPort: 2379
@@ -188,6 +190,7 @@ spec:
     - --initial-cluster-state
     - new
     image: quay.io/coreos/etcd:latest
+    imagePullPolicy: IfNotPresent
     name: etcd2
     ports:
     - containerPort: 2379

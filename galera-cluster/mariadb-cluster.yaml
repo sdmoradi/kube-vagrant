@@ -43,6 +43,7 @@ spec:
       containers:
       - name: galera
         image: severalnines/mariadb:10.1
+        imagePullPolicy: IfNotPresent
         ports:
         - name: mysql
           containerPort: 3306
