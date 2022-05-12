@@ -17,7 +17,7 @@
   when:
     - inventory_hostname == groups['kube_control_plane'][0]
 - name: apply manifest cluster.yml
-  shell: kubectl create -f /vagrant/rook/deploy/examples/cluster.yaml
+  shell: kubectl create -f /vagrant/rook/deploy/examples/cluster-test.yaml
   args:
     executable: /bin/bash
   when:
@@ -29,7 +29,7 @@
   when:
     - inventory_hostname == groups['kube_control_plane'][0]
 - name: apply StorageClass manifest 
-  shell: kubectl create -f /vagrant/rook/deploy/examples/csi/rbd/storageclass.yaml
+  shell: kubectl create -f /vagrant/rook/deploy/examples/csi/rbd/storageclass-test.yaml
   args:
     executable: /bin/bash
   when:
