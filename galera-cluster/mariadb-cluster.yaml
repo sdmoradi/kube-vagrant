@@ -38,6 +38,8 @@ spec:
                 matchExpressions:
                   - { key: app, operator: In, values: [ galera-ss ] }
               topologyKey: "kubernetes.io/hostname"
+      securityContext:
+        runAsUser: 1000
       containers:
       - name: galera
         image: severalnines/mariadb:10.1
