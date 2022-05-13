@@ -52,7 +52,7 @@ $shared_folders ||= {}
 $forwarded_ports ||= {}
 $subnet ||= "172.18.8"
 $subnet_ipv6 ||= "fd3c:b398:0698:0756"
-$os ||= "ubuntu2004"
+$os ||= "centos-bento"
 $network_plugin ||= "flannel"
 # Setting multi_networking to true will install Multus: https://github.com/intel/multus-cni
 $multi_networking ||= "False"
@@ -152,7 +152,7 @@ Vagrant.configure("2") do |config|
         vb.customize ["modifyvm", :id, "--vram", "8"] # ubuntu defaults to 256 MB which is a waste of precious RAM
         vb.customize ["modifyvm", :id, "--audio", "none"]
        	file_disk = "/tmp/Extera_disk_#{i}.vdi"
-    	vb.customize ['createhd', '--filename', file_disk, '--size', 50 * 1024]
+    	vb.customize ['createhd', '--filename', file_disk, '--size', 80 * 1024]
     	vb.customize ['storageattach', :id, '--storagectl', 'SATA Controller', '--port', 1, '--device', 0, '--type', 'hdd', '--medium', file_disk]
       end
 

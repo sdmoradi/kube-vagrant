@@ -91,9 +91,9 @@
   changed_when: false
   when: ansible_distribution == "Ubuntu"
 
-- name: Update Package Cache (dnf/CentOS)
+- name: Update Package Cache (yum/CentOS)
   tags: always
-  dnf:
+  yum:
     update_cache: yes
   changed_when: false
   when: ansible_distribution == "CentOS"
