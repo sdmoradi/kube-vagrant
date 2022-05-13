@@ -19,27 +19,77 @@
     executable: /bin/bash
   when:
     - inventory_hostname == groups['kube_control_plane'][0]
+    - ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+
 - name: apply manifest operator rook ceph
   shell: kubectl create -f /vagrant/rook/deploy/examples/operator.yaml
   args:
     executable: /bin/bash
   when:
     - inventory_hostname == groups['kube_control_plane'][0]
+    - ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+
 - name: apply manifest cluster.yml
   shell: kubectl create -f /vagrant/rook/deploy/examples/cluster.yaml
   args:
     executable: /bin/bash
   when:
     - inventory_hostname == groups['kube_control_plane'][0]
+    - ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+
 - name: apply manifest toolbox ceph
   shell: kubectl create -f /vagrant/rook/deploy/examples/toolbox.yaml
   args:
     executable: /bin/bash
   when:
     - inventory_hostname == groups['kube_control_plane'][0]
+    - ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+
 - name: apply StorageClass manifest 
   shell: kubectl create -f /vagrant/rook/deploy/examples/csi/rbd/storageclass.yaml
   args:
     executable: /bin/bash
   when:
     - inventory_hostname == groups['kube_control_plane'][0]
+    - ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+
+- name: apply manifest crds.yaml & common
+  shell: /usr/local/bin/kubectl create -f /vagrant/rook/deploy/examples/crds.yaml -f /vagrant/rook/deploy/examples/common.yaml
+  args:
+    executable: /bin/bash
+  when:
+    - inventory_hostname == groups['kube_control_plane'][0]
+    - ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
+
+- name: apply manifest operator rook ceph
+  shell: /usr/local/bin/kubectl create -f /vagrant/rook/deploy/examples/operator.yaml
+  args:
+    executable: /bin/bash
+  when:
+    - inventory_hostname == groups['kube_control_plane'][0]
+    - ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
+
+- name: apply manifest cluster.yml
+  shell: /usr/local/bin/kubectl create -f /vagrant/rook/deploy/examples/cluster.yaml
+  args:
+    executable: /bin/bash
+  when:
+    - inventory_hostname == groups['kube_control_plane'][0]
+    - ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
+
+- name: apply manifest toolbox ceph
+  shell: /usr/local/bin/kubectl create -f /vagrant/rook/deploy/examples/toolbox.yaml
+  args:
+    executable: /bin/bash
+  when:
+    - inventory_hostname == groups['kube_control_plane'][0]
+    - ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
+
+- name: apply StorageClass manifest 
+  shell: /usr/local/bin/kubectl create -f /vagrant/rook/deploy/examples/csi/rbd/storageclass.yaml
+  args:
+    executable: /bin/bash
+  when:
+    - inventory_hostname == groups['kube_control_plane'][0]
+    - ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
+

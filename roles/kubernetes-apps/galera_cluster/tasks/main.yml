@@ -19,10 +19,30 @@
     executable: /bin/bash
   when:
     - inventory_hostname == groups['kube_control_plane'][0]
+    - ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+
 - name: apply galera cluster manifests
   shell: kubectl create -f /vagrant/galera-cluster/etcd-cluster.yaml -f /vagrant/galera-cluster/mariadb-cluster.yaml
   args:
     executable: /bin/bash
   when:
     - inventory_hostname == groups['kube_control_plane'][0]
+    - ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+
+- name: Edit mariadb name space
+  shell: /usr/local/bin/kubectl create ns mariadb-ns
+  args:
+    executable: /bin/bash
+  when:
+    - inventory_hostname == groups['kube_control_plane'][0]
+    - ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
+
+- name: apply galera cluster manifests
+  shell: /usr/local/bin/kubectl create -f /vagrant/galera-cluster/etcd-cluster.yaml -f /vagrant/galera-cluster/mariadb-cluster.yaml
+  args:
+    executable: /bin/bash
+  when:
+    - inventory_hostname == groups['kube_control_plane'][0]
+    - ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
+
 
