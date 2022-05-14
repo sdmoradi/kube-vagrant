@@ -52,7 +52,7 @@ $shared_folders ||= {}
 $forwarded_ports ||= {}
 $subnet ||= "172.18.8"
 $subnet_ipv6 ||= "fd3c:b398:0698:0756"
-$os ||= "centos-bento"
+$os ||= "ubuntu2004"
 $network_plugin ||= "flannel"
 # Setting multi_networking to true will install Multus: https://github.com/intel/multus-cni
 $multi_networking ||= "False"
@@ -69,7 +69,8 @@ $kube_node_instances_with_disks ||= true
 $kube_node_instances_with_disks_size ||= "50G"
 $kube_node_instances_with_disks_number ||= 1
 $override_disk_size ||= true
-$disk_size ||= "50GB"
+$disk_size ||= "50"
+$Ex_disk_size ||= 80
 $local_path_provisioner_enabled ||= "False"
 $local_path_provisioner_claim_root ||= "/opt/local-path-provisioner/"
 $libvirt_nested ||= false
@@ -151,8 +152,8 @@ Vagrant.configure("2") do |config|
         vb.linked_clone = true
         vb.customize ["modifyvm", :id, "--vram", "8"] # ubuntu defaults to 256 MB which is a waste of precious RAM
         vb.customize ["modifyvm", :id, "--audio", "none"]
-       	file_disk = "/tmp/Extera_disk_#{i}.vdi"
-    	vb.customize ['createhd', '--filename', file_disk, '--size', 80 * 1024]
+       	file_disk = "/storage/Extera_disk_#{i}.vdi"
+    	vb.customize ['createhd', '--filename', file_disk, '--size', $Ex_disk_size * 1024]
     	vb.customize ['storageattach', :id, '--storagectl', 'SATA Controller', '--port', 1, '--device', 0, '--type', 'hdd', '--medium', file_disk]
       end
 
