@@ -43,7 +43,7 @@ if File.exist?(CONFIG)
 end
 
 # Defaults for config options defined in CONFIG
-$num_instances ||= 3
+$num_instances ||= 4
 $instance_name_prefix ||= "k8s"
 $vm_gui ||= false
 $vm_memory ||= 12288
@@ -70,7 +70,7 @@ $kube_node_instances_with_disks_size ||= "50G"
 $kube_node_instances_with_disks_number ||= 1
 $override_disk_size ||= true
 $disk_size ||= "50"
-$Ex_disk_size ||= 80
+$Ex_disk_size ||= 50
 $local_path_provisioner_enabled ||= "False"
 $local_path_provisioner_claim_root ||= "/opt/local-path-provisioner/"
 $libvirt_nested ||= false
@@ -152,8 +152,8 @@ Vagrant.configure("2") do |config|
         vb.linked_clone = true
         vb.customize ["modifyvm", :id, "--vram", "8"] # ubuntu defaults to 256 MB which is a waste of precious RAM
         vb.customize ["modifyvm", :id, "--audio", "none"]
-       	file_disk = "/storage/Extera_disk_#{i}.vdi"
-    	vb.customize ['createhd', '--filename', file_disk, '--size', $Ex_disk_size * 1024]
+       	file_disk = "~/storage/Extera_disk_#{i}.vdi"
+    	vb.customize ['createhd', '--filename', file_disk, '--size', 50 * 1024]
     	vb.customize ['storageattach', :id, '--storagectl', 'SATA Controller', '--port', 1, '--device', 0, '--type', 'hdd', '--medium', file_disk]
       end
 

@@ -63,7 +63,7 @@ spec:
         enabled: true
   # enable the ceph dashboard for viewing cluster status
   dashboard:
-    enabled: true
+    enabled: false
     # serve the dashboard under a subpath (useful when you are accessing the dashboard via a reverse proxy)
     # urlPrefix: /ceph-dashboard
     # serve the dashboard at the given port.
@@ -105,7 +105,7 @@ spec:
     # Provide internet protocol version. IPv6, IPv4 or empty string are valid options. Empty string would mean IPv4
     #ipFamily: "IPv6"
     # Ceph daemons to listen on both IPv4 and Ipv6 networks
-    #dualStack: false
+    dualStack: false
   # enable the crash collector for ceph daemon crash collection
   crashCollector:
     disable: false
@@ -193,16 +193,28 @@ spec:
 #    crashcollector:
   resources:
 # The requests and limits set here, allow the mgr pod to use half of one CPU core and 1 gigabyte of memory
-#    mgr:
-#      limits:
-#        cpu: "500m"
-#        memory: "1024Mi"
-#      requests:
-#        cpu: "500m"
-#        memory: "1024Mi"
+    mgr:
+      limits:
+        cpu: "1000m"
+        memory: "2048Mi"
+      requests:
+        cpu: "1000m"
+        memory: "2048Mi"
 # The above example requests/limits can also be added to the other components
-#    mon:
-#    osd:
+    mon:
+      limits:
+        cpu: "1000m"
+        memory: "2048Mi"
+      requests:
+        cpu: "1000m"
+        memory: "2048Mi"
+    osd:
+      limits:
+        cpu: "1000m"
+        memory: "2048Mi"
+      requests:
+        cpu: "1000m"
+        memory: "2048Mi"
 # For OSD it also is a possible to specify requests/limits based on device class
 #    osd-hdd:
 #    osd-ssd:

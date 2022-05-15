@@ -130,7 +130,7 @@ ingress_alb_enabled: false
 # alb_ingress_aws_debug: "false"
 
 # Cert manager deployment
-cert_manager_enabled: false
+cert_manager_enabled: true
 # cert_manager_namespace: "cert-manager"
 # cert_manager_tolerations:
 #   - key: node-role.kubernetes.io/master
@@ -158,7 +158,7 @@ cert_manager_enabled: false
 
 # MetalLB deployment
 metallb_enabled: false
-metallb_speaker_enabled: true
+metallb_speaker_enabled: false
 # metallb_ip_range:
 #   - "10.5.0.50-10.5.0.99"
 # metallb_pool_name: "loadbalanced"
