@@ -1,4 +1,3 @@
 .vagrant/
-tmp/
 inventory/sample/credentials/
 inventory/sample/artifacts/
