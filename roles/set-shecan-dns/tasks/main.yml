@@ -1,7 +1,7 @@
 ---
 # tasks file for set-shecan-dns
 - name: DNS | Set shecan dns before download
-  shell: resolvectl dns eth0 185.51.200.2 178.22.122.100 && netplan apply
+  shell: sudo resolvectl dns eth0 185.51.200.2 178.22.122.100 && sudo netplan apply
   when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
 
 - name: DNS | Set shecan dns before download

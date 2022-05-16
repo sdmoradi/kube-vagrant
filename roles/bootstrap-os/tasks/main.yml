@@ -86,6 +86,7 @@
 
 - name: Update Package Cache (apt/Ubuntu)
   tags: always
+  become: true
   apt:
     update_cache: yes
   changed_when: false
@@ -96,6 +97,7 @@
   yum:
     update_cache: yes
   changed_when: false
+  become: true
   when: ansible_distribution == "CentOS"
 
 - name: Update Package Cache (yum/Amazon)
@@ -103,6 +105,7 @@
   yum:
     update_cache: yes
   changed_when: false
+  become: true
   when: ansible_distribution == "Amazon"
 
 - name: "Install ceph-commmon package"
