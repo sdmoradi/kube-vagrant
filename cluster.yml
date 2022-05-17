@@ -124,6 +124,7 @@
     - { role: kubernetes-apps, tags: apps }
     - { role: kubernetes-apps/rook_ceph }
     - { role: kubernetes-apps/galera_cluster }
+    - { role: kubernetes-apps/Monitoring }
 
 - name: Apply resolv.conf changes now that cluster DNS is up
   hosts: k8s_cluster
