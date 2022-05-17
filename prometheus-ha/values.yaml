@@ -29,7 +29,7 @@ prometheus:
   enabled: true
   image: prom/prometheus
   clusterName: my-prometheus
-  replicas: 1
+  replicas: 3
   storage: 10Gi
   resources:
     limits:
@@ -48,9 +48,12 @@ pushgateway:
 
 # Kubernetes Multi-Cluster Monitoring Using Thanos (single Grafana dashboard)
 thanos:
-#  archive_bucket: thanos-ruler
+  archive_bucket: thanos-ruler
   s3_secret: thanos-s3-credentials
   image: quay.io/thanos/thanos:v0.23.0
+
+  secret:
+    enabled: true
 
   query:
     enabled: true
