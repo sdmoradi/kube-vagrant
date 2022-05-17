@@ -16,6 +16,7 @@ spec:
   selector:
     app: galera-ss
 
+
 ---
 
 apiVersion: apps/v1
