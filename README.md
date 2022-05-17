@@ -1,26 +1,26 @@
 # kube-vagrant
 ![Kubernetes Logo](https://raw.githubusercontent.com/kubernetes-sigs/kubespray/master/docs/img/kubernetes-logo.png)
 
-**In this Project We'll Deploy Kubernetes Cluster and then Monitor it using Prometheus**
+## In this Project We'll Deploy Kubernetes Cluster and then Monitor it using Prometheus
 
-## Requirements
-We have 3 Nodes(Ubuntu 20.04) with 6 core CPU and 12 Gi RAM. Every 3 kubernetes nodes are also ControlPlane(master) and Worker.
-##
-Step One: Deploy Kubernetes multi master ha cluster with Vagrant and virtualbox
+Step One: Deploy Kubernetes multi master ha cluster with Vagrant and virtualbox.
+
 Step Two: Using Ceph-Rook as Storage Class.
-Step Three: At the End Deploy Mariadb HA with Galera Cluster and Monitor Deploymet by using prometheus and grafana.
-All steps is Automated.
 
+Step Three: At the End Deploy Mariadb HA with Galera Cluster and Monitor Deploymet by using prometheus and grafana.
+
+# All steps will be automated
 
 ## Requirements
 
 - Host with 24 core CPU and 48 Gi RAM and any OS nested virtualization will be enabled.
+- 3 Instance(Ubuntu 20.04) with 8 core CPU and 16 Gi RAM. Every 3 kubernetes nodes are also ControlPlane(master) and Worker.
 - Download and install Vagrant in host from <https://www.vagrantup.com/downloads> .
 - Download and install VirtualBox from <https://www.virtualbox.org/wiki/Downloads> .
 
 Attention : we use <https://shecan.ir/> DNS in this project for lifting of sanctions
 
-### Before deploy 
+### Before Deploy 
 You need to install vagrant-disksize plugin for extra disk cause ceph rook need second hard disk drive in raw (without format)
 for install please run in host:
 ```ShellSession
