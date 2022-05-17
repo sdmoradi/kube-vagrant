@@ -34,6 +34,13 @@ sudo pip install -r requirements.txt
 vagrant up
 ```
 
+#### If a vagrant run failed and you've made some changes to fix the issue causing the fail, here is how you would re-run ansible:
+
+```ShellSession
+ansible-playbook -vvv -i .vagrant/provisioners/ansible/inventory/vagrant_ansible_inventory --become --become-user=root cluster.yml
+```
+
+
 ### Access to cluster nodes and manage
 
 ```ShellSession
