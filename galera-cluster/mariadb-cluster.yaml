@@ -3,6 +3,9 @@ kind: Service
 metadata:
   name: galera-ss
   namespace: mariadb-ns
+  annotations:
+    prometheus.io/scrape: "true"
+    prometheus.io/port: "9104"
   labels:
     app: galera-ss
 spec:
@@ -41,7 +44,6 @@ spec:
       containers:
       - name: galera
         image: severalnines/mariadb:10.1
-        imagePullPolicy: IfNotPresent
         ports:
         - name: mysql
           containerPort: 3306
@@ -78,6 +80,15 @@ spec:
         volumeMounts:
         - name: mysql-datadir
           mountPath: /var/lib/mysql
+      - name: metrics
+        image: "prom/mysqld-exporter:v0.11.0"
+        imagePullPolicy: "IfNotPresent"
+        env:
+          - name: DATA_SOURCE_NAME
+            value: "root:myrootpassword@(localhost:3306)/"
+        ports:
+          - name: metrics
+            containerPort: 9104
   volumeClaimTemplates:
   - metadata:
       name: mysql-datadir

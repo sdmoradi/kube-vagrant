@@ -1,0 +1,61 @@
+{{- if .Values.thanos.compactor.enabled -}}
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: thanos-compactor
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: thanos-compactor
+spec:
+  serviceName: thanos-compactor
+  replicas: {{ .Values.thanos.compactor.replicas }}
+  selector:
+    matchLabels:
+      app: thanos-compactor
+      thanos-store-api: "true"
+  template:
+    metadata:
+      labels:
+        app: thanos-compactor
+        thanos-store-api: "true"
+    spec:
+      containers:
+        - name: thanos
+          image: {{ .Values.thanos.image }}
+          args:
+            - compact
+            - --log.level=debug
+            - --data-dir=/data
+            - --retention.resolution-raw=15d
+            - --retention.resolution-5m=10d
+            - --retention.resolution-1h=10d
+            - "--objstore.config=$(S3_APPLICATION_CREDENTIALS)"
+            - --wait
+          env:
+            - name : S3_APPLICATION_CREDENTIALS
+              valueFrom:
+                secretKeyRef:
+                  key: thanos-s3-credentials.yaml
+                  name: thanos-s3-credentials
+          ports:
+            - name: http
+              containerPort: 10902
+          livenessProbe:
+            httpGet:
+              port: http
+              path: /-/healthy
+          readinessProbe:
+            httpGet:
+              port: 10902
+              path: /-/ready
+          resources:
+            {{- toYaml .Values.thanos.compactor.resources | nindent 12 }}
+          volumeMounts:
+            - name: thanos-s3-credentials
+              mountPath: /etc/secret
+              readOnly: false
+      volumes:
+        - name: thanos-s3-credentials
+          secret:
+            secretName: thanos-s3-credentials
+{{- end }}

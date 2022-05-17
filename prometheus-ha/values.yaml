@@ -1,0 +1,118 @@
+namespace: monitoring
+
+storageClass:
+  name: ceph-rook-block
+
+alertmanager:
+  enabled: true
+  image: prom/alertmanager
+  service:
+    type: ClusterIP
+
+grafana:
+  enabled: true
+  image: grafana/grafana
+  service:
+    type: ClusterIP
+  storage: 5G
+
+
+kube_state_metrics:
+  enabled: true
+  image: quay.io/coreos/kube-state-metrics
+
+nodeExporter:
+  enabled: true
+  image: prom/node-exporter
+
+prometheus:
+  enabled: true
+  image: prom/prometheus
+  clusterName: my-prometheus
+  replicas: 1
+  storage: 10Gi
+  resources:
+    limits:
+      cpu: "1"
+      memory: 1Gi
+    requests:
+      cpu: 100m
+      memory: 256Mi
+
+pushgateway:
+  enabled: true
+  image: prom/pushgateway
+  replicas: 1
+  service:
+    type: ClusterIP
+
+# Kubernetes Multi-Cluster Monitoring Using Thanos (single Grafana dashboard)
+thanos:
+#  archive_bucket: thanos-ruler
+  s3_secret: thanos-s3-credentials
+  image: quay.io/thanos/thanos:v0.23.0
+
+  query:
+    enabled: true
+    replicas: 1
+    extraArgs: {}
+    resources:
+      limits:
+        cpu: "1"
+        memory: 1Gi
+      requests:
+        cpu: 100m
+        memory: 256Mi
+    service:
+      type: ClusterIP
+    scrape:
+      enabled: false
+      type: LoadBalancer
+
+  compactor:
+    enabled: true
+    replicas: 1
+    resources:
+      limits:
+        cpu: "1"
+        memory: 1Gi
+      requests:
+        cpu: 100m
+        memory: 256Mi
+
+  store:
+    enabled: true
+    replicas: 1
+    resources:
+      limits:
+        cpu: 1
+        memory: 4Gi
+      requests:
+        cpu: 0.5
+        memory: 1Gi
+
+  ruler:
+    enabled: true
+    replicas: 1
+    rules_bucket: prometheus-rules-archive
+    service:
+      type: ClusterIP
+    resources:
+      limits:
+        cpu: "1"
+        memory: 1Gi
+      requests:
+        cpu: 50m
+        memory: 100Mi
+
+ingress:
+  enabled: true
+  ingressClassName: nginx
+  grafana:
+    host: grafana.cluster.local
+  alertmanager:
+    host: alertmanager.cluster.local
+  query:
+    host: thanos-query.cluster.local
+  ruler:
+    host: thanos-ruler.cluster.local

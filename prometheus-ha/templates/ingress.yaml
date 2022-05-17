@@ -1,0 +1,57 @@
+{{- if .Values.ingress.enabled -}}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: monitoring-ingress
+  namespace: {{ .Values.namespace }}
+  {{- with .Values.ingress.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  ingressClassName: {{ .Values.ingress.ingressClassName }}
+  rules:
+  - host: {{ .Values.ingress.grafana.host }}
+    http:
+      paths:
+      - path: /
+        backend:
+          service:
+            name: grafana
+            port:
+              number: 3000
+        pathType: ImplementationSpecific
+
+  - host: {{ .Values.ingress.alertmanager.host }}
+    http: 
+      paths:
+      - path: /
+        backend:
+          service:
+            name: alertmanager
+            port:
+              number: 9093
+        pathType: ImplementationSpecific
+
+  - host: {{ .Values.ingress.query.host }}
+    http:
+      paths:
+      - path: /
+        backend:
+          service:
+            name: thanos-querier
+            port:
+              number: 9090
+        pathType: ImplementationSpecific
+
+  - host: {{ .Values.ingress.ruler.host }}
+    http:
+      paths:
+      - path: /
+        backend:
+          service:
+            name: thanos-ruler
+            port:
+              number: 9090
+        pathType: ImplementationSpecific
+{{- end }}
