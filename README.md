@@ -17,7 +17,7 @@ Attention : we use <https://shecan.ir/> DNS in this project for lifting of sanct
 ### before deploy 
 you need to install vagrant-disksize plugin for extra disk cause ceph rook need second hard disk drive in raw (without format)
 for install please run in host:
-```shell
+```ShellSession
 vagrant plugin install vagrant-disksize
 ````
 ## Quick Start
@@ -54,7 +54,7 @@ kubectl get nodes -o wide
 
 ### Check cluster nodes state
 
-```shell
+```ShellSession
 kubectl get nodes -o wide
 ```
 
