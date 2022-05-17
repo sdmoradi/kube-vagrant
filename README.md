@@ -1,13 +1,13 @@
 # kube-vagrant
 ![Kubernetes Logo](https://raw.githubusercontent.com/kubernetes-sigs/kubespray/master/docs/img/kubernetes-logo.png)
 
-## In this Project We'll Deploy Kubernetes Cluster and then Monitor it using Prometheus
+## In this Project We'll Deploy Kubernetes Cluster and then Monitor it using Prometheus and Grafana
 
 Step One: Deploy Kubernetes multi master ha cluster with Vagrant and virtualbox.
 
 Step Two: Using Ceph-Rook as Storage Class.
 
-Step Three: At the End Deploy Mariadb HA with Galera Cluster and Monitor Deploymet by using prometheus and grafana.
+Step Three: At the End Deploy Mariadb HA with Galera Cluster and Monitor Deploymet by using prometheus, thanos and grafana.
 
 # All steps will be automated
 
