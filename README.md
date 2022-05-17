@@ -1,10 +1,10 @@
 # kube-vagrant
 ![Kubernetes Logo](https://raw.githubusercontent.com/kubernetes-sigs/kubespray/master/docs/img/kubernetes-logo.png)
 
-deploy kubernetes multi master ha cluster with Vagrant and virtualbox and using ceph as storage class (ceph rook)
+Deploy kubernetes multi master ha cluster with Vagrant and virtualbox and using ceph as storage class (ceph rook)
 after that deploy ha cluster mariadb with galera in ceph storage class and monitor that by prometheus and grafana
-all step is automated.
-In this scenario we have 3 node with 6 core CPU and 12 Gi RAM.
+all steps is automated.
+In this scenario we have 3 nodes with 6 core CPU and 12 Gi RAM.
 
 ## Requirements
 
@@ -14,8 +14,8 @@ In this scenario we have 3 node with 6 core CPU and 12 Gi RAM.
 
 Attention : we use <https://shecan.ir/> DNS in this project for lifting of sanctions
 
-### before deploy 
-you need to install vagrant-disksize plugin for extra disk cause ceph rook need second hard disk drive in raw (without format)
+### Before deploy 
+You need to install vagrant-disksize plugin for extra disk cause ceph rook need second hard disk drive in raw (without format)
 for install please run in host:
 ```ShellSession
 vagrant plugin install vagrant-disksize
