@@ -26,6 +26,9 @@ for install please run in host:
 ```ShellSession
 vagrant plugin install vagrant-disksize
 ````
+
+You can edit Vagrant file variables in vagrant/config.rb before deploy
+
 ## Quick Start
 
 To deploy the cluster you can use :
