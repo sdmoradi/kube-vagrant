@@ -1,10 +1,16 @@
 # kube-vagrant
 ![Kubernetes Logo](https://raw.githubusercontent.com/kubernetes-sigs/kubespray/master/docs/img/kubernetes-logo.png)
 
-Deploy kubernetes multi master ha cluster with Vagrant and virtualbox and using ceph as storage class (ceph rook)
-after that deploy ha cluster mariadb with galera in ceph storage class and monitor that by prometheus and grafana
-all steps is automated.
-In this scenario we have 3 nodes with 6 core CPU and 12 Gi RAM.
+**In this Project We'll Deploy Kubernetes Cluster and then Monitor it using Prometheus**
+
+## Requirements
+We have 3 Nodes(Ubuntu 20.04) with 6 core CPU and 12 Gi RAM. Every 3 kubernetes nodes are also ControlPlane(master) and Worker.
+##
+Step One: Deploy Kubernetes multi master ha cluster with Vagrant and virtualbox
+Step Two: Using Ceph-Rook as Storage Class.
+Step Three: At the End Deploy Mariadb HA with Galera Cluster and Monitor Deploymet by using prometheus and grafana.
+All steps is Automated.
+
 
 ## Requirements
 
