@@ -55,10 +55,10 @@ kubectl get nodes -o wide
 ## About the solutions use in this challenge
 
 for deploying we use [kubespry] <https://github.com/kubernetes-sigs/kubespray.git>
-in this project we have changed some things:
+in this project we have changed features and added new features :
 * Use shecan dns by adding role in roles/ for lifting of sanctions
 * Change in Vagrantfile for nodes extra disk
 * Add rook_ceph role in cluster.yaml and create rook role in roles/kubernetes-app/ for installing rook as kubernetes storage class
-* Add galera_cluster role in cluster.yaml and create galera_cluster role in roles/kubernetes-app/ for installing galera cluster database
-*
+* Add galera_cluster role in cluster.yaml and create galera_cluster role in roles/kubernetes-app/ for installing galera cluster database on storage class
+* Add monitoring role in cluster.yaml and create monitoring role in roles/kubernetes-app/ for installing prometheus and grafana and monitor mysql metrics in dashboard
 
