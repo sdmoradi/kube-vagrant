@@ -17,4 +17,6 @@ data:
 {{ .Files.Get "configs/cluster-metrics.json" | indent 4 }}
   nodemetrics.json: |-
 {{ .Files.Get "configs/node-metrics.json" | indent 4 }}
+  galera-mariadb.json: |-
+{{ .Files.Get "configs/galera-mariadb-overview_rev3.json" | indent 4 }}
 {{- end }}
