@@ -1,48 +1,49 @@
 ---
-# tasks file for rook_ceph
-- name: DNS1 | Set shecan dns before download
-  shell: resolvectl dns eth0 185.51.200.2 178.22.122.100 && netplan apply
-  when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
-  args:
-    executable: /bin/bash
+# If all masters have node role, there are no tainted master and toleration should not be specified.
+- name: Check all masters are node or not
+  set_fact:
+    masters_are_not_tainted: "{{ groups['kube_node'] | intersect(groups['kube_control_plane']) == groups['kube_control_plane'] }}"
 
-
-- name: DNS1 | Set shecan dns before download
-  shell: echo "nameserver 185.51.200.2">/etc/resolv.conf && echo "nameserver 178.22.122.100">>/etc/resolv.conf
-  when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
-  args:
-    executable: /bin/bash
-
-- name: Edit mariadb name space
-  shell: kubectl create ns mariadb-ns
-  args:
-    executable: /bin/bash
+- name: Galera cluster Server | Delete addon dir
+  file:
+    path: "{{ kube_config_dir }}/addons/galera_cluster"
+    state: absent
   when:
     - inventory_hostname == groups['kube_control_plane'][0]
-    - ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+  tags:
+    - upgrade
 
-- name: apply galera cluster manifests
-  shell: kubectl create -f /vagrant/galera-cluster/etcd-cluster.yaml -f /vagrant/galera-cluster/mariadb-cluster.yaml
-  args:
-    executable: /bin/bash
+- name: Galera cluster Server | Create addon dir
+  file:
+    path: "{{ kube_config_dir }}/addons/galera_cluster"
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
   when:
     - inventory_hostname == groups['kube_control_plane'][0]
-    - ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
 
-- name: Edit mariadb name space
-  shell: /usr/local/bin/kubectl create ns mariadb-ns
-  args:
-    executable: /bin/bash
+- name: Galera Server | Templates list
+  set_fact:
+    Galera_server_templates:
+      - { name: etcd-cluster, file: etcd-cluster.yaml }
+      - { name: mariadb-cluster, file: mariadb-cluster.yaml }
+
+- name: Galera cluster Server | Create manifests
+  template:
+    src: "{{ item.file }}"
+    dest: "{{ kube_config_dir }}/addons/galera_cluster/{{ item.file }}"
+    mode: 0644
+  with_items: "{{ Galera_server_templates }}"
+  register: Galera_server_manifests
   when:
     - inventory_hostname == groups['kube_control_plane'][0]
-    - ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
 
-- name: apply galera cluster manifests
-  shell: /usr/local/bin/kubectl create -f /vagrant/galera-cluster/etcd-cluster.yaml -f /vagrant/galera-cluster/mariadb-cluster.yaml
-  args:
-    executable: /bin/bash
+- name: Galera Server | Apply manifests
+  kube:
+    kubectl: "{{ bin_dir }}/kubectl"
+    filename: "{{ kube_config_dir }}/addons/galera_cluster/{{ item.item.file }}"
+    state: "present"
+  with_items: "{{ Galera_server_manifests.results }}"
   when:
     - inventory_hostname == groups['kube_control_plane'][0]
-    - ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
-
-
