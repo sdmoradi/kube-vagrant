@@ -34,7 +34,7 @@ spec:
   # This means Ceph's status could be degraded and we don't recommend upgrading but you might decide otherwise
   # Use at your OWN risk
   # To understand Rook's upgrade process of Ceph, read https://rook.io/docs/rook/latest/ceph-upgrade.html#ceph-version-upgrades
-  skipUpgradeChecks: false
+  skipUpgradeChecks: true
   # Whether or not continue if PGs are not clean during an upgrade
   continueUpgradeAfterChecksEvenIfNotHealthy: false
   # WaitTimeoutForHealthyOSDInMinutes defines the time (in minutes) the operator would wait before an OSD can be stopped for upgrade or restart.
@@ -42,7 +42,7 @@ spec:
   # if `continueUpgradeAfterChecksEvenIfNotHealthy` is `false`. If `continueUpgradeAfterChecksEvenIfNotHealthy` is `true`, then opertor would
   # continue with the upgrade of an OSD even if its not ok to stop after the timeout. This timeout won't be applied if `skipUpgradeChecks` is `true`.
   # The default wait timeout is 10 minutes.
-  waitTimeoutForHealthyOSDInMinutes: 10
+  waitTimeoutForHealthyOSDInMinutes: 30
   mon:
     # Set the number of mons to be started. Generally recommended to be 3.
     # For highest availability, an odd number of mons should be specified.
@@ -196,25 +196,25 @@ spec:
     mgr:
       limits:
         cpu: "500m"
-        memory: "2048Mi"
+        memory: "1024Mi"
       requests:
         cpu: "500m"
-        memory: "2048Mi"
+        memory: "1024Mi"
 # The above example requests/limits can also be added to the other components
     mon:
       limits:
         cpu: "500m"
-        memory: "2048Mi"
+        memory: "1024Mi"
       requests:
         cpu: "500m"
-        memory: "2048Mi"
+        memory: "1024Mi"
     osd:
       limits:
         cpu: "500m"
-        memory: "2048Mi"
+        memory: "1024Mi"
       requests:
         cpu: "500m"
-        memory: "2048Mi"
+        memory: "1024Mi"
 # For OSD it also is a possible to specify requests/limits based on device class
 #    osd-hdd:
 #    osd-ssd:
