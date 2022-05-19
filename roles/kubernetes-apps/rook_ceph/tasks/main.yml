@@ -35,7 +35,7 @@
 - name: ceph rook Server | Create manifests
   template:
     src: "{{ item.file }}"
-    dest: "{{ kube_config_dir }}/addons/rook_ceph{{ item.file }}"
+    dest: "{{ kube_config_dir }}/addons/rook_ceph/{{ item.file }}"
     mode: 0644
   with_items: "{{ Ceph_rook_server_templates }}"
   register: ceph_rook_server_manifests
@@ -48,10 +48,5 @@
     filename: "{{ kube_config_dir }}/addons/rook_ceph/{{ item.item.file }}"
     state: "present"
   with_items: "{{ ceph_rook_server_manifests.results }}"
-  wait: true
-  wait_timeout: 1200
-    wait_condition:
-      type: Complete
-      status: True
   when:
     - inventory_hostname == groups['kube_control_plane'][0]
