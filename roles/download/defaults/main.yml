@@ -1722,6 +1722,33 @@ downloads:
     groups:
     - kube_control_plane
 
+  rook_ceph_ceph_v1_9_3:
+    enabled: true
+    container: true
+    repo: "{{ docker_image_repo }}/rook/ceph"
+    tag: "v1.9.3"
+    sha256: "{{ rook_ceph_ceph_v1_9_3_digest_checksum|default(None) }}"
+    groups:
+    - kube_node
+
+  rook_ceph_ceph_v16_2_7:
+    enabled: true
+    container: true
+    repo: "{{ quay_image_repo }}/ceph/ceph"
+    tag: "v16.2.7"
+    sha256: "{{ rook_ceph_ceph_v16_2_7_digest_checksum|default(None) }}"
+    groups:
+    - kube_node
+
+  rook_ceph_cephcsi_v3_6_1:
+    enabled: true
+    container: true
+    repo: "{{ quay_image_repo }}/cephcsi/cephcsi"
+    tag: "v3.6.1"
+    sha256: "{{ rook_ceph_cephcsi_v3_6_1_digest_checksum|default(None) }}"
+    groups:
+    - kube_node
+
 download_defaults:
   container: false
   file: false
