@@ -466,6 +466,7 @@ spec:
       containers:
         - name: rook-ceph-operator
           image: rook/ceph:v1.9.3
+          imagePullPolicy: IfNotPresent
           args: ["ceph", "operator"]
           securityContext:
             runAsNonRoot: true
