@@ -20,6 +20,13 @@ Step Three: At the End Deploy Mariadb HA with Galera Cluster and Monitor Deploym
 
 Attention : we use <https://shecan.ir/> DNS in this project for lifting of sanctions
 
+### Ansible
+
+#### Usage
+
+Install Ansible according to [Ansible installation guide](/docs/ansible.md#installing-ansible)
+then run the following steps:
+
 ### Before Deploy 
 You need to install vagrant-disksize plugin for extra disk cause ceph rook need second hard disk drive in raw (without format)
 for install please run in host:

@@ -2,3 +2,4 @@
 .vagrant/
 inventory/sample/credentials/
 inventory/sample/artifacts/
+kube-vagrant-venv/
