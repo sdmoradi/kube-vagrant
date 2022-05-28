@@ -48,7 +48,7 @@ pushgateway:
 
 # Kubernetes Multi-Cluster Monitoring Using Thanos (single Grafana dashboard)
 thanos:
-  archive_bucket: thanos-ruler
+  archive_bucket: thanos-ruler00
   s3_secret: thanos-s3-credentials
   image: quay.io/thanos/thanos:v0.23.0
 
