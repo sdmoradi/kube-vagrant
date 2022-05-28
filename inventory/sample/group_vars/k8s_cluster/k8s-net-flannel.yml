@@ -2,7 +2,7 @@
 
 ## interface that should be used for flannel operations
 ## This is actually an inventory cluster-level item
-# flannel_interface:
+flannel_interface: eth1
 
 ## Select interface that should be used for flannel operations by regexp on Name or IP
 ## This is actually an inventory cluster-level item
