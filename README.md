@@ -14,7 +14,7 @@ Step Three: At the End Deploy Mariadb HA with Galera Cluster and Monitor Deploym
 ## Requirements
 
 - Host with 24 core CPU and 48 Gi RAM and any OS nested virtualization will be enabled.
-- 3 Instance(Ubuntu 20.04) with 8 core CPU and 16 Gi RAM. Every 3 kubernetes nodes are also ControlPlane(master) and Worker.
+- 3 Instance(Ubuntu 20.04) with 6 core CPU and 12 Gi RAM. Every 3 kubernetes nodes are also ControlPlane(master) and Worker.
 - Download and install Vagrant in host from <https://www.vagrantup.com/downloads> .
 - Download and install VirtualBox from <https://www.virtualbox.org/wiki/Downloads> .
 
